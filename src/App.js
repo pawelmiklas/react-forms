@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Label from './components/Label';
 
 class App extends Component {
   state = {
@@ -7,6 +8,7 @@ class App extends Component {
     email: '',
     password: '',
     checkbox: false,
+    showPopup: false,
     checkStatus: {
       username: true,
       email: true,
@@ -33,7 +35,7 @@ class App extends Component {
   handleCheckProperits = () => {
     const {username, email, password, checkbox} = this.state;
     let checkStatus = this.state.checkStatus;
-    const  regExpUsername  =  /^[a-zA-Z0-9\*\!\\?\(\)]{3,20}$/;
+    const  regExpUsername  =  /^[a-zA-Z0-9\\?]{3,20}$/;
     const  regExpEmail  =  /\S+@\S+\.\S+/;
     const  regExpPassword  =  /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
@@ -68,13 +70,25 @@ class App extends Component {
     this.setState({
       checkStatus
     })
+
+    if(checkStatus.username && checkStatus.password && checkStatus.email && checkStatus.checkbox){
+      return true;
+    } else{
+      return false;
+    }
   }
 
   handleSubmitForm = (e) => {
     e.preventDefault();
     const result = this.handleCheckProperits();
-    
-    
+    if(result){
+      this.setState({
+        showPopup: true
+      })
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
   }
   
   render() {
@@ -82,54 +96,52 @@ class App extends Component {
     return (
       <main className="main">
         <form className="form" onSubmit={this.handleSubmitForm} noValidate>
-          <label htmlFor="username">Your name
-            <input
-              className="input"
-              type="text"
-              id="username"
-              value={this.state.username}
-              onChange={this.handleChange}
+        <Label
+          id="username"
+          class="input"
+          type="text"
+          value={this.state.username}
+          change={this.handleChange}
+          label={username}
+          error='Enter correct name!'
+        >Name</Label>
+
+        <Label
+          id="email"
+          class="input"
+          type="email"
+          value={this.state.email}
+          change={this.handleChange}
+          label={email}
+          error='Email must contain the @ symbol!'
+        >Email</Label>
+
+        <Label
+          id="password"
+          class="input"
+          type="password"
+          value={this.state.password}
+          change={this.handleChange}
+          label={password}
+          error='Password must have minimum 8 letters, with at least a symbol, upper and lower case letters and a number!'
+        >Password</Label>
+
+        <label className="label-checkbox" htmlFor="checkbox"> 
+          <input 
+            className="input checkbox"
+            type="checkbox"
+            id="checkbox"
+            value={this.state.checkbox}
+            onChange={this.handleChange}
+            checked={this.state.checkbox}
             />
-            {!username ? <p className="error">Enter correct name!</p> : null}
-          </label>
+          I agree to the Terms and Conditions
+        </label>
 
-          <label htmlFor="email">Your email
-            <input 
-              className="input"
-              type="email"
-              id="email"
-              value={this.state.email}
-              onChange={this.handleChange}
-              />
-              {!email ? <p className="error">Email must contain the @ symbol!</p> : null}
-          </label>
-
-          <label htmlFor="password">Your password
-            <input 
-              className="input"
-              type="password"
-              id="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-              />
-              {!password ? <p className="error">Password must have minimum 8 letters, with at least a symbol, upper and lower case letters and a number!</p> : null}
-          </label>
-
-          <label className="label-checkbox" htmlFor="checkbox"> 
-            <input 
-              className="input checkbox"
-              type="checkbox"
-              id="checkbox"
-              value={this.state.terms}
-              onChange={this.handleChange}
-              checked={this.state.checkbox}
-              />
-            I agree to the Terms and Conditions
-          </label>
-              {!checkbox ? <p className="error error--checkbox">Checkbox is required!</p> : null}
-
-          <input className="submit" type="submit" value="send"/>
+        {!checkbox ? <p className="error error--checkbox">Checkbox is required!</p> : null}
+        <input className="submit" type="submit" value="send"/>
         </form>
+        {this.state.showPopup ? <div className="popup">The form has been sent</div> : null }
       </main>
     );
   }
