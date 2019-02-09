@@ -1,32 +1,86 @@
-.App {
-  text-align: center;
+.main{
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  background-image: linear-gradient(to right top, #71aaff, #58a3e6, #4b99cc, #498fb1, #4e8397);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.form{
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  min-height: 500px;
+  background-color: rgba(255, 255, 255, 1);
+  max-width: 500px;
+  width: 100%;
+  margin: 10px 30px;
+  padding: 30px;
+}
+label{
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, 0.6);
+  max-width: 420px;
 }
 
-.App-link {
-  color: #61dafb;
+.input{
+  width: 400px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.267);
+  outline: none;
+  font-size: 1.1rem;
+}
+.checkbox{
+  width: auto;
+  flex-direction: row;
+  margin-right: 10px;
+  height: 13px;
+}
+.label-checkbox{
+  display: flex;
+  flex-direction: row;
+  width: 420px;
+  align-items: center;
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.submit{
+  width: 180px;
+  height: 50px;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: 2px solid rgba(0, 0, 0, 0.267);
+  margin-top: 20px;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: cubic-bezier(0.55, 0.085, 0.68, 0.53) .2s;
+  letter-spacing: 1px;
+}
+.submit:hover{
+  background-color: #71aaff;
+  border: 2px solid rgba(0, 0, 0, 0.01);
+  color: #fff;
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255) inset;
+}
+.error{
+  color: rgba(255, 42, 42, 0.781);
+  margin: 10px 0;
+  font-size: 1.1rem;
+  width: 100%;
+}
+.error--checkbox{
+  padding-left: 10px;
+  margin: 0 0 15px 0;
+  padding-left: 20px; 
 }
