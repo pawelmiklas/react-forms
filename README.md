@@ -1,4 +1,4 @@
-## React validate forms
+## React validation forms
 
 React form validation with regex.
 
